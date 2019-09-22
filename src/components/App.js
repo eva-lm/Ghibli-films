@@ -1,11 +1,13 @@
 import React from "react";
 import "../stylesheets/App.scss";
 import getDataFromServer from "../services/data";
-import List from "./List";
 import Header from "./Header";
-import { Route, Switch } from "react-router-dom";
-import Item from "./Item";
-import Filter from "./Filter";
+import { Switch, Route } from "react-router-dom";
+//import List from "./List";
+//import Item from "./Item";
+//import Filter from "./Filter";
+import Home from "./Home";
+import Detail from "./Detail";
 
 class App extends React.Component {
   constructor() {
@@ -58,12 +60,24 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <Filter getUserFilter={this.getUserFilter} search={this.state.search} />
-        <List
-          films={this.state.films}
-          handleFilm={this.handleFilm}
-          search={this.state.search}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return (
+                <Home
+                  getUserFilter={this.getUserFilter}
+                  search={this.state.search}
+                  films={this.state.films}
+                  handleFilm={this.handleFilm}
+                />
+              );
+            }}
+          />
+
+          <Route path="/detail" component={Detail} />
+        </Switch>
       </div>
     );
   }
@@ -84,3 +98,11 @@ export default App;
             render={routerProps => <Item match={routerProps.match} />}
           />
         </Switch> */
+
+/* 
+        <Filter getUserFilter={this.getUserFilter} search={this.state.search} />
+        <List
+          films={this.state.films}
+          handleFilm={this.handleFilm}
+          search={this.state.search}
+        /> */

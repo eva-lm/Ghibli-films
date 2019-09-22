@@ -1,6 +1,7 @@
 import React from "react";
 import Item from "./Item";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const List = props => {
   const { films, search } = props;
@@ -11,7 +12,9 @@ const List = props => {
         .map((film, index) => {
           return (
             <li className="film_item" key={index}>
-              <Item film={film} handleFilm={props.handleFilm} />
+              <Link to="/detail" className="film_link">
+                <Item film={film} handleFilm={props.handleFilm} />
+              </Link>
             </li>
           );
         })}
