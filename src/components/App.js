@@ -5,15 +5,18 @@ import List from "./List";
 import Header from "./Header";
 import { Route, Switch } from "react-router-dom";
 import Item from "./Item";
+import Filter from "./Filter";
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      films: []
+      films: [],
+      search: ""
     };
     this.handleFilm = this.handleFilm.bind(this);
+    this.getUserFilter = this.getUserFilter.bind(this);
   }
   componentDidMount() {
     getDataFromServer().then(data => {
@@ -44,11 +47,31 @@ class App extends React.Component {
       films: newFilm
     });
   }
+  getUserFilter(event) {
+    const search = event.currentTarget.value;
+
+    this.setState({
+      search: search
+    });
+  }
   render() {
     return (
       <div className="App">
         <Header />
-        {/*       <Switch>
+        <Filter getUserFilter={this.getUserFilter} search={this.state.search} />
+        <List
+          films={this.state.films}
+          handleFilm={this.handleFilm}
+          search={this.state.search}
+        />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+/*       <Switch>
           <Route
             exact
             path="/"
@@ -60,11 +83,4 @@ class App extends React.Component {
             path="/detail/:id"
             render={routerProps => <Item match={routerProps.match} />}
           />
-        </Switch> */}
-        <List films={this.state.films} handleFilm={this.handleFilm} />
-      </div>
-    );
-  }
-}
-
-export default App;
+        </Switch> */
