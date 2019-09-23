@@ -76,7 +76,14 @@ class App extends React.Component {
             }}
           />
 
-          <Route path="/detail" component={Detail} />
+          <Route
+            path="/detail/:id"
+            render={routerProps => {
+              return (
+                <Detail routerProps={routerProps} films={this.state.films} />
+              );
+            }}
+          />
         </Switch>
       </div>
     );

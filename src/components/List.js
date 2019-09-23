@@ -12,7 +12,7 @@ const List = props => {
         .map((film, index) => {
           return (
             <li className="film_item" key={index}>
-              <Link to="/detail" className="film_link">
+              <Link to={`/detail/${film.id}`} className="film_link">
                 <Item film={film} handleFilm={props.handleFilm} />
               </Link>
             </li>
